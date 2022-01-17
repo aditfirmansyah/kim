@@ -141,7 +141,10 @@ $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
 foreach ($data_report as $row) {
 	$excel->setActiveSheetIndex(0)->setCellValue('A' . $numrow, $no);
 	$excel->setActiveSheetIndex(0)->setCellValue('B' . $numrow, $row['input_date']);
-	$excel->setActiveSheetIndex(0)->setCellValue('C' . $numrow, $row['tipe']);
+	$get_data_tipe = $lib->get_by_id_tipe2($row['id_tipe']);
+	foreach ($get_data_tipe as $tipe_name) {
+		$excel->setActiveSheetIndex(0)->setCellValue('C' . $numrow, $tipe_name['tipe_name']);
+	}
 	$excel->setActiveSheetIndex(0)->setCellValue('D' . $numrow, $row['defect']);
 	// if ($excel->setActiveSheetIndex(0)->setCellValue('E' . $numrow, $row['picture'])) {
 	$objDrawing = new PHPExcel_Worksheet_Drawing();
@@ -227,7 +230,7 @@ foreach ($data_report as $row) {
 $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5); // Set width kolom A
 $excel->getActiveSheet()->getColumnDimension('B')->setWidth(15); // Set width kolom B
 $excel->getActiveSheet()->getColumnDimension('C')->setWidth(15); // Set width kolom C
-$excel->getActiveSheet()->getColumnDimension('D')->setWidth(16); // Set width kolom D
+$excel->getActiveSheet()->getColumnDimension('D')->setWidth(25); // Set width kolom D
 $excel->getActiveSheet()->getColumnDimension('E')->setWidth(50); // Set width kolom E
 $excel->getActiveSheet()->getColumnDimension('F')->setWidth(10); // Set width kolom F
 $excel->getActiveSheet()->getColumnDimension('G')->setWidth(15); // Set width kolom G

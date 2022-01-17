@@ -148,6 +148,13 @@ class config
         $query->execute();
         return $query->fetch();
     }
+    public function get_by_id_pengguna2($kd_pengguna)
+    {
+        $query = $this->db->prepare("SELECT * FROM akun where id_akun=?");
+        $query->bindParam(1, $kd_pengguna);
+        $query->execute();
+        return $query->fetchAll();
+    }
     public function get_by_id_report($kd_report)
     {
         $query = $this->db->prepare("SELECT * FROM report where id_report=?");
@@ -162,7 +169,13 @@ class config
         $query->execute();
         return $query->fetch();
     }
-
+    public function get_by_id_tipe2($kd_tipe)
+    {
+        $query = $this->db->prepare("SELECT * FROM tipe where id_tipe=?");
+        $query->bindParam(1, $kd_tipe);
+        $query->execute();
+        return $query->fetchAll();
+    }
     //REGISTRASI AKUN
     public function registrasiPengguna($nama, $npk, $pass, $map, $aks, $negara)
     {
@@ -207,6 +220,7 @@ class config
     //Buat Report penggunaan : form_pm.php
     public function buatReport(
         $idx,
+        $akun,
         $id,
         $type,
         $jg,
@@ -231,8 +245,9 @@ class config
         if ($tipe_file == "image/jpeg" || $tipe_file == "image/png") {
             if ($ukuran_file <= $limit) {
                 if (move_uploaded_file($tmp, $path)) {
-                    $sql = $this->db->prepare("INSERT INTO report(id_report, input_date, tipe, judge, after_repair, defect, picture, size, area, sub_area, smd, ism, rmd , irm, isk) VALUES(:id_reportx, :input_datex, :tipex, :judgex, :after_repairx, :defectx, :picturex, :sizex, :areax, :sub_areax, :smdx, :ismx, :rmdx , :irmx, :isk)");
+                    $sql = $this->db->prepare("INSERT INTO report(id_report, id_akun, input_date, id_tipe, judge, after_repair, defect, picture, size, area, sub_area, smd, ism, rmd , irm, isk) VALUES(:id_reportx, :id_akunx, :input_datex, :tipex, :judgex, :after_repairx, :defectx, :picturex, :sizex, :areax, :sub_areax, :smdx, :ismx, :rmdx , :irmx, :isk)");
                     $sql->bindParam(':id_reportx', $idx);
+                    $sql->bindParam(':id_akunx', $akun);
                     $sql->bindParam(':input_datex', $id);
                     $sql->bindParam(':tipex', $type);
                     $sql->bindParam(':judgex', $jg);
@@ -264,8 +279,9 @@ class config
             echo "<script type='text/javascript'>alert('Gambar yang diupload harus ber ekstensi JPG/JPEG/PNG');window.location.href = '../admin/data_report.php';</script>";
         }
     }
-    public function ubahDataReportv3(
+    public function ubahDataReport(
         $id,
+        $akun,
         $tipex,
         $jg,
         $afterR,
@@ -285,21 +301,22 @@ class config
         $idx
     ) {
         if (empty($foto)) {
-            $queryUpdate = $this->db->prepare('UPDATE report set input_date=?, tipe=?, judge=?, after_repair=?, defect=?, size=?, area=?, sub_area=?, smd=?, ism=?, rmd=?, irm=?, isk=?  where id_report=?');
-            $queryUpdate->bindParam(1, $id);
-            $queryUpdate->bindParam(2, $tipex);
-            $queryUpdate->bindParam(3, $jg);
-            $queryUpdate->bindParam(4, $afterR);
-            $queryUpdate->bindParam(5, $defectx);
-            $queryUpdate->bindParam(6, $sizex);
-            $queryUpdate->bindParam(7, $arx);
-            $queryUpdate->bindParam(8, $subx);
-            $queryUpdate->bindParam(9, $smdx);
-            $queryUpdate->bindParam(10, $isq);
-            $queryUpdate->bindParam(11, $rmdx);
-            $queryUpdate->bindParam(12, $irmx);
-            $queryUpdate->bindParam(13, $ismx);
-            $queryUpdate->bindParam(14, $idx);
+            $queryUpdate = $this->db->prepare('UPDATE report set id_akun=?, input_date=?, id_tipe=?, judge=?, after_repair=?, defect=?, size=?, area=?, sub_area=?, smd=?, ism=?, rmd=?, irm=?, isk=?  where id_report=?');
+            $queryUpdate->bindParam(1, $akun);
+            $queryUpdate->bindParam(2, $id);
+            $queryUpdate->bindParam(3, $tipex);
+            $queryUpdate->bindParam(4, $jg);
+            $queryUpdate->bindParam(5, $afterR);
+            $queryUpdate->bindParam(6, $defectx);
+            $queryUpdate->bindParam(7, $sizex);
+            $queryUpdate->bindParam(8, $arx);
+            $queryUpdate->bindParam(9, $subx);
+            $queryUpdate->bindParam(10, $smdx);
+            $queryUpdate->bindParam(11, $isq);
+            $queryUpdate->bindParam(12, $rmdx);
+            $queryUpdate->bindParam(13, $irmx);
+            $queryUpdate->bindParam(14, $ismx);
+            $queryUpdate->bindParam(15, $idx);
             $queryUpdate->execute();
             if ($queryUpdate) {
                 echo "<script type='text/javascript'>alert('Berhasil Mengubah Data Report!');window.location.href = '../admin/data_report.php';</script>"; //redirect halaman
@@ -320,22 +337,23 @@ class config
                         if (is_file("../../img/picture_report/" . $data['picture'])) {
                             unlink("../../img/picture_report/" . $data['picture']);
                         }
-                        $queryUpdate = $this->db->prepare('UPDATE report set input_date=?, tipe=?, judge=?, after_repair=?, defect=? , picture=?, size=?, area=?, sub_area=?, smd=?, ism=?, rmd=?, irm=?, isk=? where id_report=?');
-                        $queryUpdate->bindParam(1, $id);
-                        $queryUpdate->bindParam(2, $tipex);
-                        $queryUpdate->bindParam(3, $jg);
-                        $queryUpdate->bindParam(4, $afterR);
-                        $queryUpdate->bindParam(5, $defectx);
-                        $queryUpdate->bindParam(6, $foto_ket);
-                        $queryUpdate->bindParam(7, $sizex);
-                        $queryUpdate->bindParam(8, $arx);
-                        $queryUpdate->bindParam(9, $subx);
-                        $queryUpdate->bindParam(10, $smdx);
-                        $queryUpdate->bindParam(11, $isq);
-                        $queryUpdate->bindParam(12, $rmdx);
-                        $queryUpdate->bindParam(13, $irmx);
-                        $queryUpdate->bindParam(14, $ismx);
-                        $queryUpdate->bindParam(15, $idx);
+                        $queryUpdate = $this->db->prepare('UPDATE report set id_akun=?, input_date=?, id_tipe=?, judge=?, after_repair=?, defect=? , picture=?, size=?, area=?, sub_area=?, smd=?, ism=?, rmd=?, irm=?, isk=? where id_report=?');
+                        $queryUpdate->bindParam(1, $akun);
+                        $queryUpdate->bindParam(2, $id);
+                        $queryUpdate->bindParam(3, $tipex);
+                        $queryUpdate->bindParam(4, $jg);
+                        $queryUpdate->bindParam(5, $afterR);
+                        $queryUpdate->bindParam(6, $defectx);
+                        $queryUpdate->bindParam(7, $foto_ket);
+                        $queryUpdate->bindParam(8, $sizex);
+                        $queryUpdate->bindParam(9, $arx);
+                        $queryUpdate->bindParam(10, $subx);
+                        $queryUpdate->bindParam(11, $smdx);
+                        $queryUpdate->bindParam(12, $isq);
+                        $queryUpdate->bindParam(13, $rmdx);
+                        $queryUpdate->bindParam(14, $irmx);
+                        $queryUpdate->bindParam(15, $ismx);
+                        $queryUpdate->bindParam(16, $idx);
 
                         $queryUpdate->execute();
 

@@ -162,7 +162,10 @@ if (isset($_GET['cari'])) {
                                 echo "<tr>";
                                 echo "<td>" . $no . "</td>";
                                 echo "<td>" . $row['input_date'] . "</td>";
-                                echo "<td>" . $row['tipe'] . "</td>";
+                                $get_data_tipe = $lib->get_by_id_tipe2($row['id_tipe']);
+                                foreach ($get_data_tipe as $tipe_name) {
+                                    echo "<td>" . $tipe_name['tipe_name']  . "</td>";
+                                }
                                 echo "<td>" . $row['defect'] . "</td>";
                                 echo "<td><img src='../../img/picture_report/" . $row['picture'] . "' height='140' width='200' alt='picture'>
                                 </td>";

@@ -10,6 +10,7 @@ if (!isset($_SESSION["npk"]) && !isset($_SESSION["akses"])) {
 }
 $data_tipe = $lib->showTipe();
 $aks = $_SESSION["akses"];
+$id_akun = $_SESSION["id_akun"];
 
 if ($aks != "admin") {
     echo "<script type='text/javascript'>alert('Anda Tidak Memiliki Akses Admin!');window.location.href = '../../index.php';</script>";
@@ -23,6 +24,7 @@ if (isset($_GET['id'])) {
 }
 if (isset($_POST['tombol_ubah'])) {
     $idx = $_POST['id_report'];
+    $akun = $_POST['id_akun'];
 
     $tgl_id = $_POST['input_date'];
     $id = date("Y-m-d", strtotime($tgl_id));
@@ -49,7 +51,7 @@ if (isset($_POST['tombol_ubah'])) {
     $irmx = $_POST['irk'];
     $ismx = $_POST['ism'];
 
-    $add_status = $lib->ubahDataReportv3($id, $tipex, $jg, $afterR, $defectx, $foto, $ukuran_file, $tipe_file, $tmp, $sizex, $arx, $subx, $smdx, $isq, $rmdx, $irmx, $ismx, $idx);
+    $add_status = $lib->ubahDataReport($id, $akun, $tipex, $jg, $afterR, $defectx, $foto, $ukuran_file, $tipe_file, $tmp, $sizex, $arx, $subx, $smdx, $isq, $rmdx, $irmx, $ismx, $idx);
 }
 ?>
 <!DOCTYPE html>
@@ -114,7 +116,8 @@ if (isset($_POST['tombol_ubah'])) {
                         <div class="row">
                             <div class="col s12 l12">
                                 <div class="input-field">
-                                    <input type="hidden" name="id_report" value="<?= $data_report['id_report']; ?>" />
+                                    <input type="hidden" name="id_report" value="<?php echo $data_report['id_report']; ?>">
+                                    <input type="hidden" name="id_akun" value="<?php echo $id_akun; ?>">
                                     <input type="text" id="date" class="datepicker validate" name="input_date" value="<?= $data_report['input_date']; ?>" required />
                                     <label for="date">Choose a date you need me for...</label>
                                 </div>
@@ -139,15 +142,14 @@ if (isset($_POST['tombol_ubah'])) {
                             </div>
 
                             <div class="col l4 s12">
-                                <input type="hidden" name="id_report" value="<?php echo $data_report['id_report']; ?>">
                                 <div class="input-field">
                                     <select name="type" required>
                                         <?php foreach ($data_tipe as $row) {
-                                            if ($row['tipe_name'] == $data_report['tipe']) {
+                                            if ($row['id_tipe'] == $data_report['id_tipe']) {
                                         ?>
-                                                <option value="<?php echo $row['tipe_name']; ?>" selected><?php echo $row['tipe_name']; ?></option>
+                                                <option value="<?php echo $row['id_tipe']; ?>" selected><?php echo $row['tipe_name']; ?></option>
                                             <?php } else { ?>
-                                                <option value="<?php echo $row['tipe_name']; ?>"><?php echo $row['tipe_name']; ?></option>
+                                                <option value="<?php echo $row['id_tipe']; ?>"><?php echo $row['tipe_name']; ?></option>
                                         <?php }
                                         } ?>
                                     </select>

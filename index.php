@@ -25,12 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data = $query->fetch();
             if ($data['akses'] == 'admin') {
                 sleep(2);
+                $_SESSION["id_akun"] = $data["id_akun"];
                 $_SESSION["npk"] = $data["npk"];
                 $_SESSION["nama"] = $data["nama"];
                 $_SESSION["akses"] = $data["akses"];
 
                 echo "<script type='text/javascript'>alert('Selamat Datang Di Page Admin!');window.location.href = 'login/admin/data_report.php';</script>";;
             } else {
+                $_SESSION["id_akun"] = $data["id_akun"];
                 $_SESSION["npk"] = $data["npk"];
                 $_SESSION["nama"] = $data["nama"];
                 $_SESSION["akses"] = $data["akses"];

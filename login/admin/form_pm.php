@@ -12,6 +12,7 @@ if (!isset($_SESSION["npk"]) && !isset($_SESSION["akses"])) {
 }
 
 $aks = $_SESSION["akses"];
+$id_akun = $_SESSION["id_akun"];
 
 if ($aks != "admin") {
   echo "<script type='text/javascript'>alert('Anda Tidak Memiliki Akses Admin!');window.location.href = '../../index.php';</script>";
@@ -20,6 +21,7 @@ if ($aks != "admin") {
 
 if (isset($_POST['tombol_tambah'])) {
   $idx = $_POST['id_report'];
+  $akun = $_POST['id_akun'];
   $tgl_id = $_POST['input_date'];
   $id = date("Y-m-d", strtotime($tgl_id));
   $type = $_POST['type'];
@@ -44,7 +46,7 @@ if (isset($_POST['tombol_tambah'])) {
   $irmx = $_POST['irk'];
   $ismx = $_POST['ism'];
 
-  $add_status = $lib->buatReport($idx, $id, $type, $jg, $afterR, $defectx, $foto, $ukuran_file, $tipe_file, $tmp, $sizex, $arx, $subx, $smdx, $isq, $rmdx, $irmx, $ismx);
+  $add_status = $lib->buatReport($idx, $akun, $id, $type, $jg, $afterR, $defectx, $foto, $ukuran_file, $tipe_file, $tmp, $sizex, $arx, $subx, $smdx, $isq, $rmdx, $irmx, $ismx);
 }
 ?>
 <!DOCTYPE html>
@@ -113,6 +115,7 @@ if (isset($_POST['tombol_tambah'])) {
                   $id_dummy = "Report" . date('dmYhis');
                   ?>
                   <input type="hidden" name="id_report" value="<?= $id_dummy; ?>" />
+                  <input type="hidden" name="id_akun" value="<?= $id_akun ?>" />
                   <input type="text" id="date" class="datepicker validate" name="input_date" required />
                   <label for="date">Choose a date you need me for...</label>
                 </div>
@@ -140,7 +143,7 @@ if (isset($_POST['tombol_tambah'])) {
                   <select name="type" required>
                     <?php foreach ($data_tipe as $row) {
                     ?>
-                      <option value="<?php echo $row['tipe_name']; ?>" selected><?php echo $row['tipe_name']; ?></option>
+                      <option value="<?php echo $row['id_tipe']; ?>"><?php echo $row['tipe_name']; ?></option>
                     <?php } ?>
                   </select>
                   <label>Type</label>

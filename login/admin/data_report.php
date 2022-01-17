@@ -108,10 +108,10 @@ if (isset($_GET['id'])) {
     <section class="container section scrollspy">
         <div class="row">
             <div class="col s12 l12 m12">
-                <a class="btn-floating btn-medium waves-effect waves-light green pulse tooltipped" href="form_pm.php" data-position="top" data-tooltip="Tambah Data Report" ><i class="material-icons">add</i></a>
+                <a class="btn-floating btn-medium waves-effect waves-light green pulse tooltipped" href="form_pm.php" data-position="top" data-tooltip="Tambah Data Report"><i class="material-icons">add</i></a>
                 <!-- Modal Trigger -->
-                <a class="btn-floating pulse waves-effect waves-light btn right modal-trigger blue tooltipped" href="#modal1" data-position="top" data-tooltip="info" ><i class="material-icons">info</i></a>
-                <a class="btn-floating pulse waves-effect waves-light btn right modal-trigger teal darken-3 tooltipped" style="margin-right:4px;" href="../config/proses.php" data-position="top" data-tooltip="Eksport Excel" ><i class="material-icons">description</i></a>
+                <a class="btn-floating pulse waves-effect waves-light btn right modal-trigger blue tooltipped" href="#modal1" data-position="top" data-tooltip="info"><i class="material-icons">info</i></a>
+                <a class="btn-floating pulse waves-effect waves-light btn right modal-trigger teal darken-3 tooltipped" style="margin-right:4px;" href="../config/proses.php" data-position="top" data-tooltip="Eksport Excel"><i class="material-icons">description</i></a>
             </div>
         </div>
         <!-- Modal Structure -->
@@ -180,7 +180,10 @@ if (isset($_GET['id'])) {
                                 echo "<tr>";
                                 echo "<td>" . $no . "</td>";
                                 echo "<td>" . $row['input_date'] . "</td>";
-                                echo "<td>" . $row['tipe'] . "</td>";
+                                $get_data_tipe = $lib->get_by_id_tipe2($row['id_tipe']);
+                                foreach ($get_data_tipe as $tipe_name) {
+                                    echo "<td>" . $tipe_name['tipe_name']  . "</td>";
+                                }
                                 echo "<td>" . $row['defect'] . "</td>";
                                 echo "<td><img src='../../img/picture_report/" . $row['picture'] . "' height='140' width='200' alt='picture'>
                                 </td>";

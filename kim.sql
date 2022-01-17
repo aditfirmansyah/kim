@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jan 2022 pada 13.25
--- Versi server: 10.4.17-MariaDB
--- Versi PHP: 7.4.15
+-- Generation Time: Jan 17, 2022 at 10:09 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akun`
+-- Table structure for table `akun`
 --
 
 CREATE TABLE `akun` (
@@ -38,32 +38,25 @@ CREATE TABLE `akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `akun`
+-- Dumping data for table `akun`
 --
 
 INSERT INTO `akun` (`id_akun`, `nama`, `npk`, `pass`, `alamat`, `akses`, `negara`) VALUES
-('2021050202', 'firmansyah', '123', '202cb962ac59075b964b07152d234b70', 'test', 'admin', 'Indonesia'),
-('2021050301', 'firmansyah', '1234', '89defae676abd3e3a42b41df17c40096', 'dadad', 'admin', 'Indonesia'),
+('2021050202', 'Sri Asmanto', '123', '827ccb0eea8a706c4c34a16891f84e7b', 'test', 'admin', 'Indonesia'),
 ('2021050312', 'Kholisah Lustinasari', '1234', '81dc9bdb52d04dc20036dbd8313ed055', 'Bandung', 'user', 'Malaysia'),
-('2021050315', 'firmansyah', '1234567', 'e10adc3949ba59abbe56e057f20f883e', 'dada', 'admin', 'Indonesia'),
-('2021050320', 'Rahma Melda', '1347', '2ddbf96e67b1c7d400979c9670d63421', 'kuala lumpur', 'user', 'Malaysia'),
-('2021050326', 'Elvano Khairuzuran', '1346', '9006645bcfa370cae1c0b4565ca15f54', 'kuala lumpur', 'admin', 'Malaysia'),
-('2021050329', 'firmansyah', '12', '1534b76d325a8f591b52d302e7181331', '12', 'admin', 'Indonesia'),
-('2021050349', 'Shawn Mendes', '1349', '0967968ff32d2bda10edaa72e545116f', 'jakarta', 'user', 'Indonesia'),
-('2021121349', 'ELVANO', '3030', '2d95666e2649fcfc6e3af75e09f5adb9', 'JAKARTA', 'user', 'Indonesia');
+('2021050315', 'Yunita', '12345', '827ccb0eea8a706c4c34a16891f84e7b', 'dada', 'admin', 'Indonesia');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `report`
+-- Table structure for table `report`
 --
 
 CREATE TABLE `report` (
   `id_report` varchar(20) NOT NULL,
   `id_tipe` varchar(20) DEFAULT NULL,
-  `id_akun` varchar(20) DEFAULT NULL,
+  `id_akun` varchar(20) NOT NULL,
   `input_date` date DEFAULT NULL,
-  `tipe` varchar(20) DEFAULT NULL,
   `judge` varchar(20) DEFAULT NULL,
   `after_repair` varchar(20) DEFAULT NULL,
   `defect` text DEFAULT NULL,
@@ -79,18 +72,18 @@ CREATE TABLE `report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `report`
+-- Dumping data for table `report`
 --
 
-INSERT INTO `report` (`id_report`, `id_tipe`, `id_akun`, `input_date`, `tipe`, `judge`, `after_repair`, `defect`, `picture`, `size`, `area`, `sub_area`, `smd`, `ism`, `rmd`, `irm`, `isk`) VALUES
-('Report07052021104832', 'TP2021060836', '2021050202', '2021-04-26', 'D38L', 'REPAIR', 'OK', 'DENT', '070520211050141.png', '1.5', 'AREA 2', 'HUB', '2021-02-05', 'F', '2021-03-04', 'DH', 'A'),
-('Report07052021105021', 'TP2021060828', '2021050202', '2021-04-26', 'D42L', 'OK', '', 'SCRATCH PACKAGING', '02012022214709040520211543432.png', '4', 'AREA 1', 'SPOKE', '2021-01-15', '12', '2021-01-18', '4', '12'),
-('Report07052021105158', 'TP2021060856', '2021050202', '2021-04-26', 'D20N', 'REPAIR', 'REJECT', 'SCRATHCH', '070520211053123.png', '25', 'AREA 1', 'HUB', '2021-02-23', 'H', '2021-02-25', '6', 'A');
+INSERT INTO `report` (`id_report`, `id_tipe`, `id_akun`, `input_date`, `judge`, `after_repair`, `defect`, `picture`, `size`, `area`, `sub_area`, `smd`, `ism`, `rmd`, `irm`, `isk`) VALUES
+('Report07052021104832', 'TP2021060836', '2021050202', '2021-04-26', 'REPAIR', 'OK', 'DENT', '070520211050141.png', '1.5', 'AREA 2', 'HUB', '2021-02-05', 'F', '2021-03-04', 'DH', 'A'),
+('Report07052021105021', 'TP2021060828', '2021050202', '2021-04-26', 'OK', '', 'SCRATCH PACKAGING', '02012022214709040520211543432.png', '4', 'AREA 1', 'SPOKE', '2021-01-15', '12', '2021-01-18', '4', '12'),
+('Report07052021105158', 'TP2021060856', '2021050202', '2021-04-26', 'REPAIR', 'REJECT', 'SCRATHCH', '070520211053123.png', '25', 'AREA 1', 'HUB', '2021-02-23', 'H', '2021-02-25', '6', 'A');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tipe`
+-- Table structure for table `tipe`
 --
 
 CREATE TABLE `tipe` (
@@ -101,7 +94,7 @@ CREATE TABLE `tipe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tipe`
+-- Dumping data for table `tipe`
 --
 
 INSERT INTO `tipe` (`id_tipe`, `tipe_name`, `create_at`, `update_at`) VALUES
@@ -114,13 +107,13 @@ INSERT INTO `tipe` (`id_tipe`, `tipe_name`, `create_at`, `update_at`) VALUES
 --
 
 --
--- Indeks untuk tabel `akun`
+-- Indexes for table `akun`
 --
 ALTER TABLE `akun`
   ADD PRIMARY KEY (`id_akun`);
 
 --
--- Indeks untuk tabel `report`
+-- Indexes for table `report`
 --
 ALTER TABLE `report`
   ADD PRIMARY KEY (`id_report`),
@@ -128,17 +121,17 @@ ALTER TABLE `report`
   ADD KEY `id_akun` (`id_akun`);
 
 --
--- Indeks untuk tabel `tipe`
+-- Indexes for table `tipe`
 --
 ALTER TABLE `tipe`
   ADD PRIMARY KEY (`id_tipe`);
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `report`
+-- Constraints for table `report`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`id_tipe`) REFERENCES `tipe` (`id_tipe`) ON DELETE CASCADE ON UPDATE CASCADE,

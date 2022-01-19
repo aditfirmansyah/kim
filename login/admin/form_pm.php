@@ -93,7 +93,7 @@ if (isset($_POST['tombol_tambah'])) {
           <li><a href="data_tipe.php" class="active">Data Tipe</a></li>
           <li><a href="../config/logout.php" class="active">Logout</a></li>
         </ul>
-        <ul class="sidenav grey lighten-2" id="mobile-menu">
+        <ul class="sidenav" id="mobile-menu">
           <li><a href="data_report.php" class="active">Report</a></li>
           <li><a href="data_akun.php" class="active">Data Akun</a></li>
           <li><a href="data_tipe.php" class="active">Data Tipe</a></li>

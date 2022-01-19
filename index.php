@@ -39,10 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script type='text/javascript'>alert('Selamat Datang Di User!');window.location.href = 'login/user/index.php';</script>";;
             }
         } else {
-            header("location:index.php?pesan=invalid");
+            echo "<script type='text/javascript'>alert('Akses Di Tolak!');window.location.href = 'index.php?pesan=invalid';</script>";
         }
     } else {
-        header("location:index.php?pesan=gagal");
+        echo "<script type='text/javascript'>alert('Akses Di Tolak!');window.location.href = 'index.php?pesan=gagal';</script>";
     }
 }
 ?>
@@ -95,6 +95,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         width: 100%;
     }
 
+    .modal {
+        max-height: 650px;
+    }
+
+    .modal-form-row {
+        margin-bottom: 0px;
+    }
+
+    div.tabs-content.carousel.carousel-slider {
+        height: 550px !important;
+    }
+
     @media only screen and (max-width : 992px) {
         .parallax-container .section {
             position: absolute;
@@ -127,12 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#about">About Site</a></li>
                     <li><a href="#informasi">Informasi</a></li>
-                    <li><a href="#login">Login</a></li>
+                    <li><a class="modal-trigger" href="#modal1">Login</a></li>
                 </ul>
-                <ul class="sidenav grey" id="mobile-menu">
+                <ul class="sidenav" id="mobile-menu">
                     <li><a href="#about">About Site</a></li>
                     <li><a href="#informasi">Informasi</a></li>
-                    <li><a href="#login">Login</a></li>
+                    <li><a class="modal-trigger" href="#modal1">Login</a></li>
                 </ul>
             </div>
         </nav>
@@ -191,7 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <!-- login / tabs -->
-    <section class="container section scrollspy" id="login">
+    <!-- <section class="container section scrollspy" id="login">
         <div class="row">
             <div class="col s12 l12">
                 <ul class="tabs">
@@ -202,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a href="#daftarhere" class="indigo-text text-darken-4">Registrasi</a>
                     </li>
                 </ul>
-                <div class="col s12 12" id="loginhere">
+                <div class="col s12 l12" id="loginhere">
                     <div class="row" style="margin-top: 4%;">
                         <div class="col s12 l4">
                             <center>
@@ -274,8 +286,92 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                 </div>
-    </section>
-
+            </div>
+        </div>
+    </section> -->
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal" style="max-width: 450px;">
+        <div class="modal-content">
+            <h6>Please Enter Your Account</h6>
+            <br>
+            <div class="row">
+                <div class="col s12 l12 m12">
+                    <ul id="tabs-swipe-demo" class="tabs">
+                        <li class="tab col s6">
+                            <a href="#loginhere" class="indigo-text text-darken-4 bg-light">Login</a>
+                        </li>
+                        <li class="tab col s6">
+                            <a href="#daftarhere" class="indigo-text text-darken-4 bg-light">Registrasi</a>
+                        </li>
+                    </ul>
+                    <div class="col s12 l12 m12" id="loginhere">
+                        <div class="row" style="margin-top: 4%;">
+                            <div class="col s12 l12 m12">
+                                <p class="flow-text indigo-text text-darken-4">
+                                    Login
+                                </p>
+                                <p>
+                                    Pastikan anda sudah memiliki akun untuk mengakses portal ini, harap isi sesuai dengan hak akses masing-masing
+                                </p>
+                                <form action="" method="post">
+                                    <div class="input-field">
+                                        <?php
+                                        if (isset($_GET['pesan'])) {
+                                            if ($_GET['pesan'] == "gagal") {
+                                                echo '<div class="row">
+                <div class="col s12">
+                  <div class="card-panel red darken-3 white-text">Anda Tidak Memilih Akses, Akses Harap Di isi!</div>
+                </div>
+              </div>';
+                                            } else {
+                                                echo '<div class="row">
+                <div class="col s12">
+                  <div class="card-panel red darken-3 white-text">Data Tidak Di Temukan, Silahkan Mendaftar Ke Admin!</div>
+                </div>
+              </div>';
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">person</i>
+                                        <input type="text" id="npk" name="npkx" required />
+                                        <label for="npk">NPK</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">lock</i>
+                                        <input type="password" id="password" name="passwordx" required />
+                                        <label for="password">Password</label>
+                                    </div>
+                                    <div class="input-field right">
+                                        <input type="submit" value="Login" name="login" class="btn" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12" id="daftarhere">
+                        <div class="row" style="margin-top: 4%;">
+                            <div class="col s12 l12 m12">
+                                <p class="flow-text indigo-text text-darken-4">
+                                    Registrasi
+                                </p>
+                                <p>
+                                    Jika anda belum memiliki akun, silahkan hubungi admin sistem kami untuk dibuatkan akun.
+                                </p>
+                                <p>
+                                    <i class="material-icons left">phone_in_talk</i> 081210370349
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
     <!-- footer -->
     <footer class="page-footer grey darken-3">
         <div class="container">
@@ -314,6 +410,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 scrollOffset: 0,
             });
             $('.tabs').tabs();
+            // $('.modal').modal();
+            $('.modal').modal({
+                onOpenEnd: function(el) {
+                    $(el).find('.tabs').tabs({
+                        swipeable: true
+                    });
+                }
+            });
         });
     </script>
 </body>

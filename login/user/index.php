@@ -84,7 +84,7 @@ if (isset($_GET['cari'])) {
                     <li><a href="#" class="active">Report</a></li>
                     <li><a href="../config/logout.php">Logout</a></li>
                 </ul>
-                <ul class="sidenav grey lighten-2" id="mobile-menu">
+                <ul class="sidenav" id="mobile-menu">
                     <li><a href="#" class="active">Report</a></li>
                     <li><a href="../config/logout.php">Logout</a></li>
                 </ul>

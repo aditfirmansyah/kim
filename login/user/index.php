@@ -302,6 +302,30 @@ if (isset($_GET['cari'])) {
             </div>
         </div>
     </section>
+    <footer class="page-footer grey darken-3" style="margin-top:20%">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 l12">
+                    <h5>Contact Us</h5>
+                    <div class="divider"></div>
+                    <p>
+                        <i class="material-icons left">business</i>
+                        Head Office
+                    </p>
+                    <p>
+                        <i class="material-icons left">location_on</i>
+                        Jl. Gaya Motor Raya, RT.9/RW.9, Sungai Bambu, North Jakarta, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14330
+                    </p>
+                    <p>
+                        <i class="material-icons left">phone</i> (021) 6511228
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright grey darken-4">
+            <div class="container center-align">&copy; 2021 | Komunikasi Indonesia Malaysia (KIM)</div>
+        </div>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
